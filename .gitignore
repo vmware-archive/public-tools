@@ -20,3 +20,26 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Build related
+target/
+ant*
+
+# IDEs
+.settings/
+.classpath
+.project
+.idea
+*.iml
+
+# Operating system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+~lock.*
+*.bak
