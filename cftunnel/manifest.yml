@@ -1,0 +1,7 @@
+applications:
+- name: cftunnel
+  instances: 1
+  memory: 50M
+  disk_quota: 50M
+  random-route: true
+  stack: cflinuxfs2
