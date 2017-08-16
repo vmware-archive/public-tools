@@ -1,0 +1,4 @@
+# Initial product tiles for Ops Manager
+cf-1.10.11-build.3.pivotal https://network.pivotal.io/api/v2/products/elastic-runtime/releases/5646/product_files/21814/download
+p-metrics-1.8.22.pivotal https://network.pivotal.io/api/v2/products/ops-metrics/releases/5589/product_files/21369/download
+p-mysql-1.9.4.pivotal https://network.pivotal.io/api/v2/products/p-mysql/releases/5695/product_files/22080/download

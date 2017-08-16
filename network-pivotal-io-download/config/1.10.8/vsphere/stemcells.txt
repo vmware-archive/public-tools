@@ -1,0 +1,4 @@
+# all required stemcells for product tiles
+bosh-stemcell-3312.28-vsphere-esxi-ubuntu-trusty-go_agent.tgz https://network.pivotal.io/api/v2/products/stemcells/releases/5664/product_files/21917/download
+bosh-stemcell-3312.29-vsphere-esxi-ubuntu-trusty-go_agent.tgz https://network.pivotal.io/api/v2/products/stemcells/releases/5882/product_files/23429/download
+bosh-stemcell-3363.25-vsphere-esxi-ubuntu-trusty-go_agent.tgz https://network.pivotal.io/api/v2/products/stemcells/releases/5663/product_files/21907/download

@@ -1,0 +1,8 @@
+# NOTE you should not attempt to use this file with the download script in Import Mode
+
+# Ops Manager installers are sourced directly from within GCP.  Read the following PDFs for more details
+OpsManager1.10.8onGCP.pdf https://network.pivotal.io/api/v2/products/ops-manager/releases/5613/product_files/21486/download
+OpsManager1.10.9onGCP.pdf https://network.pivotal.io/api/v2/products/ops-manager/releases/5673/product_files/21975/download
+
+# labs require this buildpack
+java-buildpack-offline-v3.15.zip https://network.pivotal.io/api/v2/products/buildpacks/releases/4932/product_files/18136/download
