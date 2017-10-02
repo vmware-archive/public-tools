@@ -1,3 +1,3 @@
 # Ops Manager product tile upgrades
 cf-1.10.12-build.2.pivotal https://network.pivotal.io/api/v2/products/elastic-runtime/releases/5683/product_files/22018/download
-p-mysql-1.9.5.pivotal https://network.pivotal.io/api/v2/products/p-mysql/releases/5938/product_files/23697/download
+p-mysql-1.9.12.pivotal https://network.pivotal.io/api/v2/products/p-mysql/releases/7107/product_files/30899/download
