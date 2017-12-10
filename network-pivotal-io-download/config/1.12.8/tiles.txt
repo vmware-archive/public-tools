@@ -1,5 +1,4 @@
 # Initial product tiles for Ops Manager
-srt-1.12.8-build.3.pivotal https://network.pivotal.io/api/v2/products/elastic-runtime/releases/8617/product_files/36393/downl
-oad
+srt-1.12.8-build.3.pivotal https://network.pivotal.io/api/v2/products/elastic-runtime/releases/8617/product_files/36393/download
 pivotal-mysql-2.1.1-build.23.pivotal https://network.pivotal.io/api/v2/products/pivotal-mysql/releases/8049/product_files/34833/download
 p-metrics-1.9.5-build.2.pivotal https://network.pivotal.io/api/v2/products/p-metrics/releases/8007/product_files/34770/download
