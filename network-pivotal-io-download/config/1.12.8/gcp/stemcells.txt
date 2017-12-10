@@ -1,2 +1,2 @@
 # all required stemcells for product tiles
-light-bosh-stemcell-3445.16-google-kvm-ubuntu-trusty-go_agent.tgz https://network.pivotal.io/api/v2/products/stemcells/releases/7528/product_files/33467/download
+light-bosh-stemcell-3445.17-google-kvm-ubuntu-trusty-go_agent.tgz https://network.pivotal.io/api/v2/products/stemcells/releases/8571/product_files/36223/download
