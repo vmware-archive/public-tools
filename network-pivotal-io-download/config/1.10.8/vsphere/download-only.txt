@@ -1,8 +1,8 @@
 # NOTE you should not attempt to use this file with the download script in Import Mode
 
 # Ops Manager installers used from the vSphere Windows client application (includes the upgrade target)
-pcf-vsphere-1.10.8.ova https://network.pivotal.io/api/v2/products/ops-manager/releases/5613/product_files/21499/download
-pcf-vsphere-1.10.9.ova https://network.pivotal.io/api/v2/products/ops-manager/releases/5673/product_files/21981/download
+ops-manager 1.10.8 21499
+ops-manager 1.10.8 21981
 
 # labs require this buildpack
-java-buildpack-offline-v3.15.zip https://network.pivotal.io/api/v2/products/buildpacks/releases/4932/product_files/18136/download
+buildpacks  3.15   18136
