@@ -44,7 +44,6 @@ do
       continue
     fi
 
-    printline "Processing ${LINE}"
     PRODUCT_SLUG=$(echo ${LINE} | cut -d " " -f1)
     PRODUCT_VERSION=$(echo ${LINE} | cut -d " " -f2)
     RELEASE_ID=$(echo ${LINE} | cut -d " " -f3)
@@ -105,7 +104,7 @@ do
         mkdir ${IMPORTED}
       fi
 
-      printline "Collapsing and archiving ${UPLOAD_TYPE} ${FILE_NAME}"
+      # zero-byte and archive file
       echo > ${DOWNLOADS}/${FILE_NAME} && mv ${DOWNLOADS}/${FILE_NAME} ${IMPORTED}
 
       printline "Imported ${UPLOAD_TYPE} ${FILE_NAME}"
