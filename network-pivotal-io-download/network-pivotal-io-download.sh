@@ -7,11 +7,12 @@
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
-# The script expects an input text file (e.g. student-files.txt) or stdin lines formatted as space-delimited pairs of [FILE_NAME] [API_DOWLOAD_URI],
+# The script expects an input text file (e.g. student-files.txt) or stdin lines formatted as space-delimited triplets of [PRODUCT_SLUG] [PRODUCT_VERSION] [RELEASE_ID]
+
 # where these values are obtained by selecting the (i) INFO icon for the associated Pivotal Network download, for example:
 #
-# pcf-vsphere-1.11.3.ova https://network.pivotal.io/api/v2/products/ops-manager/releases/5930/product_files/23671/download
-# cf-1.11.1-build.6.pivotal https://network.pivotal.io/api/v2/products/elastic-runtime/releases/5903/product_files/23528/download
+# ops-manager     1.12.5 35440
+# elastic-runtime 1.12.8 36393
 # ... and so on
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -22,13 +23,7 @@ function printline() {
   echo && printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' - && echo $1
 }
 
-# for platform independence
-REALPATH="realpath"
-if ! which ${REALPATH} > /dev/null ; then
-  REALPATH="readlink -f"
-fi
-
-SCRIPTDIR=$(dirname $(${REALPATH} $0))
+SCRIPTDIR=$(dirname $(realpath $0))
 
 while true # process next file
 do
@@ -44,40 +39,25 @@ do
     fi
 
     printline "Processing ${LINE}"
-    FILE_NAME=$(echo ${LINE} | cut -d " " -f1)
-    API_DOWNLOAD_URI=$(echo ${LINE} | cut -d " " -f2)
-    PRODUCT_SLUG=$(echo ${API_DOWNLOAD_URI}| cut -d "/" -f7)
-    RELEASE_ID=$(echo ${API_DOWNLOAD_URI}| cut -d "/" -f9)
+    PRODUCT_SLUG=$(echo ${LINE} | cut -d " " -f1)
+    PRODUCT_VERSION=$(echo ${LINE} | cut -d " " -f2)
+    RELEASE_ID=$(echo ${LINE} | cut -d " " -f3)
 
-    # https://discuss.pivotal.io/hc/en-us/articles/217039538-How-to-download-and-upload-Pivotal-Cloud-Foundry-products-via-API
-    API_PATH=available_products
-    UPLOAD_TYPE=product
-    if echo ${FILE_NAME} | grep -q "stemcell"; then
-      # the URIs for stemcells are similar to products
-      API_PATH=stemcells
-      UPLOAD_TYPE=stemcell
-    fi
-
-    printline "Accepting EULA for ${UPLOAD_TYPE} ${FILE_NAME}"
-    curl -H "Accept: application/json" \
-      -H "Content-Type: application/json" \
-      -H "Authorization: Token ${API_TOKEN}" \
-      -X POST \
-      https://network.pivotal.io/api/v2/products/${PRODUCT_SLUG}/releases/${RELEASE_ID}/eula_acceptance
-
-    printline "Downloading ${UPLOAD_TYPE} ${FILE_NAME}"
+    printline "Downloading ${PRODUCT_SLUG} ${PRODUCT_VERSION} ${RELEASE_ID}"
     DOWNLOADS=${SCRIPTDIR}/downloads
     if [ ! -d ${DOWNLOADS} ]; then
       mkdir ${DOWNLOADS}
     fi
 
-    wget --output-document="${DOWNLOADS}/${FILE_NAME}" \
-      --header="Authorization: Token ${API_TOKEN}" \
-      ${API_DOWNLOAD_URI}
+    pushd ${DOWNLOADS} > /dev/null
+    ${SCRIPTDIR}/pivnet-linux login --api-token=${API_TOKEN}
+    ${SCRIPTDIR}/pivnet-linux accept-eula -p ${PRODUCT_SLUG} -r ${PRODUCT_VERSION}
+    ${SCRIPTDIR}/pivnet-linux download-product-files -p ${PRODUCT_SLUG} -r ${PRODUCT_VERSION} -i ${RELEASE_ID}
+    popd > /dev/null
 
     # only attempt to import to PCF if OPSMAN_USER was provided
     if [ -z ${OPSMAN_USER+x} ]; then
-      continue
+      continue 
     fi
 
     if [ -z ${UAA_TOKEN+x} ]; then # do this just once
@@ -92,20 +72,34 @@ do
                        cut -d":" -f2)
     fi
 
-    printline "Importing ${UPLOAD_TYPE} ${FILE_NAME}"
-    curl -k \
-      -H "Authorization: Bearer $UAA_TOKEN" \
-      -F "${UPLOAD_TYPE}[file]=@${DOWNLOADS}/${FILE_NAME}" \
-      -X POST \
-      https://localhost/api/v0/${API_PATH}
+    # just cycle contents of downloads directory
+    # because we don't know the name of the file we just got
+    for FILE_NAME in $(ls ${DOWNLOADS}); do
 
-    IMPORTED=${SCRIPTDIR}/imported
-    if [ ! -d ${IMPORTED} ]; then
-      mkdir ${IMPORTED}
-    fi
+      # https://discuss.pivotal.io/hc/en-us/articles/217039538-How-to-download-and-upload-Pivotal-Cloud-Foundry-products-via-API
+      API_PATH=available_products
+      UPLOAD_TYPE=product
+      if echo ${FILE_NAME} | grep -q "stemcell"; then
+        # the URIs for stemcells are similar to products
+        API_PATH=stemcells
+        UPLOAD_TYPE=stemcell
+      fi
 
-    printline "Collapsing and archiving ${UPLOAD_TYPE} ${FILE_NAME}"
-    echo > ${DOWNLOADS}/${FILE_NAME} && mv ${DOWNLOADS}/${FILE_NAME} ${IMPORTED}
+      printline "Importing ${UPLOAD_TYPE} ${FILE_NAME}"
+      curl -k \
+        -H "Authorization: Bearer $UAA_TOKEN" \
+        -F "${UPLOAD_TYPE}[file]=@${DOWNLOADS}/${FILE_NAME}" \
+        -X POST \
+        https://localhost/api/v0/${API_PATH}
+
+      IMPORTED=${SCRIPTDIR}/imported
+      if [ ! -d ${IMPORTED} ]; then
+        mkdir ${IMPORTED}
+      fi
+
+      printline "Collapsing and archiving ${UPLOAD_TYPE} ${FILE_NAME}"
+      echo > ${DOWNLOADS}/${FILE_NAME} && mv ${DOWNLOADS}/${FILE_NAME} ${IMPORTED}
+    done # process nest FILE_NAME
 
     printline "Imported ${UPLOAD_TYPE} ${FILE_NAME}"
 
