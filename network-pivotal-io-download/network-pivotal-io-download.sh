@@ -23,7 +23,13 @@ function printline() {
   echo && printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' - && echo $1
 }
 
-SCRIPTDIR=$(dirname $(realpath $0))
+# for platform independence
+REALPATH="realpath"
+if ! which ${REALPATH} > /dev/null ; then
+  REALPATH="readlink -f"
+fi
+
+SCRIPTDIR=$(dirname $(${REALPATH} $0))
 
 while true # process next file
 do
