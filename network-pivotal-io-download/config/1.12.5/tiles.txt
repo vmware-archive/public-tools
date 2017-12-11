@@ -1,4 +1,0 @@
-# Initial product tiles for Ops Manager
-elastic-runtime 1.12.7 34460
-ops-metrics     1.9.5  34770
-p-mysql         2.1.1  34833

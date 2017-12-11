@@ -56,9 +56,11 @@ do
     fi
 
     pushd ${DOWNLOADS} > /dev/null
-    ${SCRIPTDIR}/pivnet-linux login --api-token=${API_TOKEN}
-    ${SCRIPTDIR}/pivnet-linux accept-eula -p ${PRODUCT_SLUG} -r ${PRODUCT_VERSION}
-    ${SCRIPTDIR}/pivnet-linux download-product-files -p ${PRODUCT_SLUG} -r ${PRODUCT_VERSION} -i ${RELEASE_ID}
+    if ${SCRIPTDIR}/pivnet-linux login --api-token=${API_TOKEN}; then
+      if ${SCRIPTDIR}/pivnet-linux accept-eula -p ${PRODUCT_SLUG} -r ${PRODUCT_VERSION}; then
+        ${SCRIPTDIR}/pivnet-linux download-product-files -p ${PRODUCT_SLUG} -r ${PRODUCT_VERSION} -i ${RELEASE_ID}
+      fi
+    fi
     popd > /dev/null
 
     # only attempt to import to PCF if OPSMAN_USER was provided
