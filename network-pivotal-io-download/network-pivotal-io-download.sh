@@ -105,9 +105,10 @@ do
 
       printline "Collapsing and archiving ${UPLOAD_TYPE} ${FILE_NAME}"
       echo > ${DOWNLOADS}/${FILE_NAME} && mv ${DOWNLOADS}/${FILE_NAME} ${IMPORTED}
-    done # process nest FILE_NAME
 
-    printline "Imported ${UPLOAD_TYPE} ${FILE_NAME}"
+      printline "Imported ${UPLOAD_TYPE} ${FILE_NAME}"
+
+    done # process nest FILE_NAME
 
   done < "${1:-/dev/stdin}" # process next line of $1 or STDIN
 
