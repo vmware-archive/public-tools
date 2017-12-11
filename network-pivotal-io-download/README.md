@@ -10,11 +10,11 @@ Get your API_TOKEN from https://network.pivotal.io/users/dashboard/edit-profile 
 API_TOKEN=DctsxNhqDc4RLqxZExYx ./network-pivotal-io-download.sh student-files1.txt student-files2.txt
 ```
 
-The script expects text file arguments or STDIN lines formatted as space-delimited pairs of **[FILE_NAME] [API_DOWLOAD_URI]** where these values are obtained by selecting the (i) INFO icon for the associated Pivotal Network download, for example:
+The script expects an input text file (e.g. student-files.txt) or stdin lines formatted as space-delimited triplets of [PRODUCT_SLUG] [PRODUCT_VERSION] [RELEASE_ID] where these values are obtained by selecting the (i) INFO icon for the associated Pivotal Network download, for example:
 
 ```
-pcf-vsphere-1.11.3.ova https://network.pivotal.io/api/v2/products/ops-manager/releases/5930/product_files/23671/download
-cf-1.11.1-build.6.pivotal https://network.pivotal.io/api/v2/products/elastic-runtime/releases/5903/product_files/23528/download
+ops-manager     1.12.5 35440
+elastic-runtime 1.12.8 36393
 ... and so on
 ```
 
