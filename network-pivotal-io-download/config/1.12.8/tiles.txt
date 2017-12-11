@@ -1,4 +1,4 @@
 # Initial product tiles for Ops Manager
 elastic-runtime 1.12.8 36393
 ops-metrics     1.9.5  34770
-p-mysql         2.1.1  34833
+pivotal-mysql   2.1.1  34833
