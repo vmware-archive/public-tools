@@ -67,37 +67,17 @@ do
       continue 
     fi
 
-    if [ -z ${UAA_TOKEN+x} ]; then # do this just once
-      printline "Fetching UUA token for importing products and stemcells"
-      UAA_TOKEN=$(curl -s -k -d "grant_type=password" \
-                       -d "username=${OPSMAN_USER}" \
-                       -d "password=${OPSMAN_PASSWD}" \
-                       -u "opsman:" https://localhost/uaa/oauth/token |\
-                       tr '{}",' '   \n' |
-                       sed "s/ *//g" |
-                       grep "^access_token:" |
-                       cut -d":" -f2)
-    fi
-
     # just cycle contents of downloads directory
     # because we don't know the name of the file we just got
     for FILE_NAME in $(ls ${DOWNLOADS}); do
 
-      # https://discuss.pivotal.io/hc/en-us/articles/217039538-How-to-download-and-upload-Pivotal-Cloud-Foundry-products-via-API
-      API_PATH=available_products
-      UPLOAD_TYPE=product
+      OM_CMD=upload-product
       if echo ${FILE_NAME} | grep -q "stemcell"; then
-        # the URIs for stemcells are similar to products
-        API_PATH=stemcells
-        UPLOAD_TYPE=stemcell
+        OM_CMD=upload-stemcell
       fi
 
-      printline "Importing ${UPLOAD_TYPE} ${FILE_NAME}"
-      curl -k \
-        -H "Authorization: Bearer $UAA_TOKEN" \
-        -F "${UPLOAD_TYPE}[file]=@${DOWNLOADS}/${FILE_NAME}" \
-        -X POST \
-        https://localhost/api/v0/${API_PATH}
+      printline "${CMD} ${FILE_NAME}"
+      ${SCRIPT_DIR}/om-linux -k -t ${OPSMAN_URL} -u ${OPSMAN_USER} -p $OPSMAN_PASSWD ${OM_CMD} -p ${DOWNLOADS}/${FILE_NAME}
 
       IMPORTED=${SCRIPTDIR}/imported
       if [ ! -d ${IMPORTED} ]; then
