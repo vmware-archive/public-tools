@@ -76,7 +76,7 @@ do
         OM_CMD=upload-stemcell
       fi
 
-      printline "${CMD} ${FILE_NAME}"
+      printline "${OM_CMD} ${FILE_NAME}"
       ${SCRIPT_DIR}/om-linux -k -t ${OPSMAN_URL} -u ${OPSMAN_USER} -p $OPSMAN_PASSWD ${OM_CMD} -p ${DOWNLOADS}/${FILE_NAME}
 
       IMPORTED=${SCRIPTDIR}/imported
