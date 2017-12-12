@@ -71,13 +71,13 @@ do
     # because we don't know the name of the file we just got
     for FILE_NAME in $(ls ${DOWNLOADS}); do
 
-      OM_CMD=upload-product
+      OM_CMD="upload-product -p"
       if echo ${FILE_NAME} | grep -q "stemcell"; then
-        OM_CMD=upload-stemcell
+        OM_CMD="upload-stemcell -s"
       fi
 
       printline "Importing: ${OM_CMD} ${FILE_NAME}"
-      ${SCRIPTDIR}/om-linux -k -t ${OPSMAN_URL} -u ${OPSMAN_USER} -p $OPSMAN_PASSWD ${OM_CMD} -p ${DOWNLOADS}/${FILE_NAME}
+      ${SCRIPTDIR}/om-linux -k -t ${OPSMAN_URL} -u ${OPSMAN_USER} -p $OPSMAN_PASSWD ${OM_CMD} ${DOWNLOADS}/${FILE_NAME}
 
       IMPORTED=${SCRIPTDIR}/imported
       if [ ! -d ${IMPORTED} ]; then
