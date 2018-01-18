@@ -20,7 +20,7 @@ elastic-runtime 1.12.8 36393
 
 ## Import Mode
 
-As per **Download Mode**, except we subsequently attempt to import all downloaded products and stemcells to Ops Manager VM residing on the **localhost**.  As such, in addition to the API_TOKEN, **Import Mode** also requires OPSMAN_USER and OPSMAN_PASSWD to be passed in on the command line, for example:
+As per **Download Mode**, except we subsequently attempt to import all downloaded products and stemcells to Ops Manager VM residing at **OPSMAN_URL**.  As such, in addition to the API_TOKEN, **Import Mode** also requires OPSMAN_USER and OPSMAN_PASSWD to be passed in on the command line, for example:
 
 ```
 API_TOKEN=DctsxNhqDc4RLqxZExYx \
