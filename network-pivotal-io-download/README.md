@@ -20,12 +20,10 @@ elastic-runtime 1.12.8 36393
 
 ## Import Mode
 
-**NOTE: Import Mode is intended for use with Ops Manager VMs installed on localhost _only_**
-
 As per **Download Mode**, except we subsequently attempt to import all downloaded products and stemcells to Ops Manager VM residing on the **localhost**.  As such, in addition to the API_TOKEN, **Import Mode** also requires OPSMAN_USER and OPSMAN_PASSWD to be passed in on the command line, for example:
 
 ```
-API_TOKEN=DctsxNhqDc4RLqxZExYx OPSMAN_USER=admin OPSMAN_PASSWD=MAvCHePSxJSl! ./network-pivotal-io-download.sh student-files1.txt student-files2.txt
+API_TOKEN=DctsxNhqDc4RLqxZExYx OPSMAN_URL=https://pcf.mydomain.com OPSMAN_USER=admin OPSMAN_PASSWD=MAvCHePSxJSl! ./network-pivotal-io-download.sh student-files1.txt student-files2.txt
 ```
 
 To preserve space on the Ops Manager VM, as soon as products and stemcells are imported, their download file gets squashed to a 1-byte file and deposited in the imported directory.
