@@ -8,7 +8,7 @@
 # amcginlay@pivotal.io
 # ... and so on
 
-# The script will result in one PAS SpaceDeveloper user per line, eash with their own ORG and a space named "dev".
+# The script will result in one PAS SpaceDeveloper user per line, each with their own like-named ORG and a SPACE named "dev".
 # For simplicity all users will have their password set to "password"
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 

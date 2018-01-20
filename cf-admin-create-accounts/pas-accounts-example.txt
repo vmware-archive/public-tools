@@ -1,4 +1,4 @@
 # this line will be ignored by cf-admin-create-accounts.sh
-zzzsbrin@abc.xyz
-zzzemusk@spacex.com
-zzzamcginlay@pivotal.io
+sbrin@abc.xyz
+emusk@spacex.com
+amcginlay@pivotal.io
