@@ -15,7 +15,6 @@ SCRIPTDIR=$(dirname $(${REALPATH} $0))
 
 OM=${SCRIPTDIR}/om-linux
 JQ=${SCRIPTDIR}/jq-linux64
-REALPATH="realpath"
 if [ "$(uname -s)" == "Darwin" ]; then
   OM=${SCRIPTDIR}/om-darwin
   JQ=${SCRIPTDIR}/jq-osx-amd64
