@@ -29,17 +29,24 @@ echo
 mkdir -p ${LOGDIR}
 
 printline "Acquiring BOSH credentials from Ops Manager"
-BOSH_AUTHENTICATED=$( \
+BOSH_AUTH="$( \
   ${OM} -k -t ${OPSMAN_URL} -u ${OPSMAN_USER} -p ${OPSMAN_PASSWD} \
     curl -s -p /api/v0/deployed/director/credentials/bosh_commandline_credentials | \
-  ${JQ} ".credential" --raw-output \
-)
+  ${JQ} ".credential" --raw-output |
+  sed "s/ bosh //"\
+)"
+eval ${BOSH_AUTH} # extract vars
+
+printline "Testing BOSH connectivity at ${BOSH_ENVIRONMENT}:25555"
+if ! nc -z ${BOSH_ENVIRONMENT} 25555 -w 5 2>&1 > /dev/null; then
+  echo "Aborting.  BOSH director unreachable.  Ensure script is run from the Ops Manager VM."
+  exit 1
+fi
 
 printline "Discovering deployments"
 mkdir -p ${LOGDIR}
 for DEPLOYMENT in $(eval ${BOSH_AUTHENTICATED} deployments | awk '{print $1}' | grep -v '\/'); do
-  printline "processing $DEPLOYMENT"
-  # eval ${BOSH_AUTHENTICATED} -d ${DEPLOYMENT} stop --hard --non-interactive 2>&1 | tee -a ${LOGFILE}
+  eval ${BOSH_AUTHENTICATED} -d ${DEPLOYMENT} stop --hard --non-interactive 2>&1 | tee -a ${LOGFILE}
 done
 
 printline "Operation complete"
