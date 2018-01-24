@@ -45,8 +45,8 @@ fi
 
 printline "Discovering deployments"
 mkdir -p ${LOGDIR}
-for DEPLOYMENT in $(eval ${BOSH_AUTHENTICATED} deployments | awk '{print $1}' | grep -v '\/'); do
-  eval ${BOSH_AUTHENTICATED} -d ${DEPLOYMENT} stop --hard --non-interactive 2>&1 | tee -a ${LOGFILE}
+for DEPLOYMENT in $(eval ${BOSH_AUTH} bosh deployments | awk '{print $1}' | grep -v '\/'); do
+  eval ${BOSH_AUTH} bosh -d ${DEPLOYMENT} stop --hard --non-interactive 2>&1 | tee -a ${LOGFILE}
 done
 
 printline "Operation complete"
