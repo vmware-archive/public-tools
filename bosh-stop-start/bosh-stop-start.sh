@@ -39,13 +39,14 @@ eval ${BOSH_AUTH} # extract vars
 
 printline "Testing BOSH connectivity at ${BOSH_ENVIRONMENT}:25555"
 if ! nc -z ${BOSH_ENVIRONMENT} 25555 -w 5 2>&1 > /dev/null; then
-  echo "Aborting.  BOSH director unreachable.  Ensure script is run from the Ops Manager VM."
+  printline "Aborting.  BOSH director unreachable.  Ensure script is run from the Ops Manager VM."
   exit 1
 fi
 
-printline "Discovering deployments"
 mkdir -p ${LOGDIR}
+printline "Discovering deployments"
 for DEPLOYMENT in $(eval ${BOSH_AUTH} bosh deployments | awk '{print $1}' | grep -v '\/'); do
+  printline "Processing ${DEPLOYMENT}"
   eval ${BOSH_AUTH} bosh -d ${DEPLOYMENT} stop --hard --non-interactive 2>&1 | tee -a ${LOGFILE}
 done
 
