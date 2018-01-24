@@ -4,17 +4,23 @@ function printline() {
   echo && printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' - && echo $1
 }
 
+# ---------------------------------------------
+# for platform independence
+# ---------------------------------------------
+REALPATH="realpath"
+if [ "$(uname -s)" == "Darwin" ]; then
+  REALPATH="readlink -f"
+fi
 SCRIPTDIR=$(dirname $(${REALPATH} $0))
 
-# for platform independence
 OM=${SCRIPTDIR}/om-linux
 JQ=${SCRIPTDIR}/jq-linux64
 REALPATH="realpath"
 if [ "$(uname -s)" == "Darwin" ]; then
   OM=${SCRIPTDIR}/om-darwin
   JQ=${SCRIPTDIR}/jq-osx-amd64
-  REALPATH="readlink -f"
 fi
+# ---------------------------------------------
 
 printline "Operation starting"
 echo
