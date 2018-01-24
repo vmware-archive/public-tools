@@ -34,7 +34,9 @@ BOSH_AUTHENTICATED=$( \
   ${JQ} ".credential" --raw-output \
 )
 
-eval ${BOSH_AUTHENTICATED} deployments | awk '{print $1}' | grep -v '\/'
+for DEPLOYMENT in $(eval ${BOSH_AUTHENTICATED} deployments | awk '{print $1}' | grep -v '\/'); do
+  echo "processing $DEPLOYMENT"
+done
 
 exit 1
 # TODO loop around the deployments calling stop --hard
