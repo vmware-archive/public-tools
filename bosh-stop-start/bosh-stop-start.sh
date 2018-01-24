@@ -24,6 +24,7 @@ LOGDIR=${SCRIPTDIR}/logs
 LOGFILE=${LOGDIR}/out-${TIMESTAMP}.log
 printline "Log will be created here: ${LOGFILE}"
 echo
+mkdir -p ${LOGDIR}
 
 BOSH_AUTHENTICATED=$( \
   ${OM} -k -t ${OPSMAN_URL} -u ${OPSMAN_USER} -p ${OPSMAN_PASSWD} \
@@ -34,7 +35,7 @@ BOSH_AUTHENTICATED=$( \
 mkdir -p ${LOGDIR}
 for DEPLOYMENT in $(eval ${BOSH_AUTHENTICATED} deployments | awk '{print $1}' | grep -v '\/'); do
   printline "processing $DEPLOYMENT"
-  eval ${BOSH_AUTHENTICATED} -d ${DEPLOYMENT} stop --hard --non-interactive
+  eval ${BOSH_AUTHENTICATED} -d ${DEPLOYMENT} stop --hard --non-interactive 2>&1 | tee -a ${LOGFILE}
 done
 
 printline "Operation complete"
