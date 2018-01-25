@@ -18,7 +18,19 @@ SCRIPTDIR=$(dirname $(${READLINK_BIN} $0))
 OM=${SCRIPTDIR}/${OM_BIN}
 JQ=${SCRIPTDIR}/${JQ_BIN}
 
-printline "Operation starting"
+case "$1" in
+  "stop")
+      BOSHCMD="stop --hard"
+      ;;
+  "start")
+      BOSHCMD="start"
+      ;;   
+  *)
+      echo "Usage: $0 <stop | start>"
+      exit 1
+esac
+
+printline "Operation starting ($1)"
 echo
 
 TIMESTAMP=$(date "+%Y%m%d%H%M%S")
@@ -47,7 +59,7 @@ mkdir -p ${LOGDIR}
 printline "Discovering deployments"
 for DEPLOYMENT in $(eval ${BOSH_AUTH} bosh deployments | awk '{print $1}' | grep -v '\/'); do
   printline "Processing ${DEPLOYMENT}"
-  eval ${BOSH_AUTH} bosh -d ${DEPLOYMENT} stop --hard --non-interactive 2>&1 | tee -a ${LOGFILE}
+  eval ${BOSH_AUTH} bosh -d ${DEPLOYMENT} ${BOSH_CMD} --non-interactive 2>&1 | tee -a ${LOGFILE}
 done
 
 printline "Operation complete"
