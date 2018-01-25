@@ -40,7 +40,7 @@ OPSMAN_PASSWD=some_long_complex_admin_password \
 
 * Use the Ops Manager as a host for this script.  If the script fails to connect to the BOSH director private IP address then the operation will be aborted.  Assigning the BOSH director a public IP address is never recommended.
 
-* An added complication arises in automating these tasks because in order to `stop` or `start` the entire installation the script must target each deployment in turn.  Individual deployment names are randomised between each installation so we can't reliably predict them.  To `stop` or `start` an installation we must first ask the system to name all its deployments so that we can successfully target each one.
+* An added complication arises in automating these tasks because in order to `stop` or `start` the entire installation the script must target each deployment in turn.  Individual deployment names are randomised between each installation so we can't reliably predict them.  To `stop` or `start` an installation we must first ask the system to list all its deployments so that we can successfully target each one.
 
 * We intentionally use `bosh stop --hard` to send an installation to sleep.  The basic `stop` command simply tells the BOSH director to stop all deployed jobs (i.e. processes) but, rather oddly, leaves all the VMs running which continue to incur costs.  At the IaaS level, the `--hard` option translates as a request to stop the jobs **and** delete the VM.  Admittedly this seems a little heavy-handed as we really just wanted the VMs stopped, but it's the only option currently available to us.
 
