@@ -12,6 +12,8 @@ Attempts to stop VMs using IaaS primitives (e.g. `gcloud compute instances stop 
 
 ## How?
 
+We recommend you SSH to the Ops Manager and use its VM as a host to run the script.
+
 There are two operational modes, `stop` and `start`, which do much as you would expect.
 
 You should expect these operations to each take **~90 mins** to complete.
@@ -36,7 +38,7 @@ OPSMAN_PASSWD=some_long_complex_admin_password \
 
 ## Technical notes
 
-* If the script fails to connect to the BOSH director private IP address then the operation will be aborted.  Assigning the BOSH director a public IP address is not recommended.  We recommend you SSH to the Ops Manager, using its VM as a host to run the script.
+* Always use the Ops Manager as a host for this script.  If the script fails to connect to the BOSH director private IP address then the operation will be aborted.  Assigning the BOSH director a public IP address is never recommended.
 
 * An added complication arises in automating these tasks because in order to `stop` or `start` the entire installation the script must target each deployment in turn.  Individual deployment names are randomised between each installation so we can't reliably predict them.  To `stop` or `start` an installation we must first ask the system to name all its deployments so that we can successfully target each one.
 
