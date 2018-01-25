@@ -1,4 +1,43 @@
 # bosh-stop-start
 
-TODO TODO TODO TODO TODO TODO TODO TODO 
+## What?
 
+`bosh-stop-start.sh` is a bash script for gracefully **stop**ping or **start**ing all the VMs in PCF installations.
+
+## Why?
+
+Because idle VMs are expensive to keep running in public cloud environments.
+
+Attempts to stop VMs using IaaS primitives (e.g. `gcloud compute instances stop vm-01234567-89ab-cdef-0123-456789abcdef`) usually end badly.  This is because the BOSH director VM always wants to maintain the lifecycle of its deployments (i.e. tiles).  Not surprising when you consider that lifecycle management is a core responsibility of BOSH.  So it's advisable to politely ask BOSH when you'd like to instruct an installation to go to sleep or wake up.
+
+## How?
+
+There are two operational modes, `stop` and `start`, which do much as you would expect.
+
+You should expect these operations to each take **~90 mins** to complete.
+
+### Stopping an running installation
+
+```no-highlight
+OPSMAN_URL=https://pcf.myinstance.mydomain.com \
+OPSMAN_USER=usually_admin \
+OPSMAN_PASSWD=some_long_complex_admin_password \
+  ./bosh-stop-start.sh stop
+```
+
+### Starting an stopped installation
+
+```no-highlight
+OPSMAN_URL=https://pcf.myinstance.mydomain.com \
+OPSMAN_USER=usually_admin \
+OPSMAN_PASSWD=some_long_complex_admin_password \
+  ./bosh-stop-start.sh start
+```
+
+## Technical notes
+
+* If the script fails to connect to the BOSH director private IP address then the operation will be aborted.  Assigned the BOSH director a public IP address is not recommended.  For this reason we recommend you use the Ops Manager VM as a host to run this script.
+
+* An added complication arises in automating these tasks because in order to `stop` or `start` the entire installation the script must target each deployment in turn.  Individual deployment names are randomised between each installation so we can't reliably predict them.  To `stop` or `start` an installation we must first ask the system to name all its deployments so that we can successfully target each deployment.
+
+* We intentionally use `bosh stop --hard` to send an installation to sleep.  The basic `stop` command simply tells the BOSH director to stop all deployed jobs (i.e. processes) but, rather oddly, leaves all the VMs running which continue to incur costs.  At the IaaS level, the `--hard` option translates as a request to delete the VM.  Admittedly this seems a little heavy-handed as we really just wanted them stopped, but it's the only option currently available to us.
