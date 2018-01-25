@@ -20,10 +20,10 @@ JQ=${SCRIPTDIR}/${JQ_BIN}
 
 case "$1" in
   "stop")
-      BOSHCMD="stop --hard"
+      BOSH_CMD="stop --hard"
       ;;
   "start")
-      BOSHCMD="start"
+      BOSH_CMD="start"
       ;;   
   *)
       echo "Usage: $0 <stop | start>"
