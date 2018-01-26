@@ -38,7 +38,7 @@ OPSMAN_PASSWD=some_long_complex_admin_password \
 
 ## Technical notes
 
-* The script uses the [OM tool](https://github.com/pivotal-cf/om) and the [JQ](https://stedolan.github.io/jq/) JSON parser.
+* The script uses the [OM](https://github.com/pivotal-cf/om) tool and the [JQ](https://stedolan.github.io/jq/) parser.
 
 * Use the Ops Manager as a host for this script.  If the script fails to connect to the BOSH director private IP address then the operation will be aborted.  Assigning the BOSH director a public IP address is never recommended.
 
