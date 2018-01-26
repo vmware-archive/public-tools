@@ -1,4 +1,4 @@
-# bosh-stop-start
+	# bosh-stop-start
 
 ## What?
 
@@ -46,4 +46,6 @@ OPSMAN_PASSWD=some_long_complex_admin_password \
 
 * We intentionally use `bosh stop --hard` to send an installation to sleep.  The basic `stop` command simply tells the BOSH director to stop all deployed jobs (i.e. processes) but, rather oddly, leaves all the VMs running which continue to incur costs.  At the IaaS level, the `--hard` option translates as a request to stop the jobs **and** delete the VM.  Admittedly this seems a little heavy-handed as we really just wanted the VMs stopped, but it's the only option currently available to us.
 
-* The BOSH director and Ops Manager VMs will remain in a running state after a `stop` operation is completed.  This is intentional.  If necessary these VMs can be manually stopped at the IaaS level but, clearly, they must both be running once again before the issuing a `start` command.
+* The BOSH director and Ops Manager VMs will remain in a running state after a `stop` operation is completed.  This is intentional.  If necessary these VMs can be manually stopped at the IaaS level but, clearly, they must both be running once again before issuing a `start` command.
+
+* It has been suggested that you should use the `Resource Config` panel of each tile to turn the instance count down to (at most) **one instance per instance group**.  If you encounter issues with the `stop` operation, like VMs failing to be deleted, this suggestion may be worth considering.
