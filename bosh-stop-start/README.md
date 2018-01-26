@@ -18,13 +18,21 @@ There are two operational modes, `stop` and `start`, which do much as you would 
 
 You should expect these operations to each take **~90 mins** to complete.
 
+### Installing the script
+
+SSH into the Ops Manager VM as the `ubuntu` user and clone this repo:
+```no-highlight
+cd ${HOME}
+git clone https://github.com/pivotal-education/public-tools.git
+```
+
 ### Stopping an running installation
 
 ```no-highlight
 OPSMAN_URL=https://pcf.myinstance.mydomain.com \
 OPSMAN_USER=usually_admin \
 OPSMAN_PASSWD=some_long_complex_admin_password \
-  ./bosh-stop-start.sh stop
+  ${HOME}/public-tools/bosh-stop-start./bosh-stop-start.sh stop
 ```
 
 ### Starting an stopped installation
@@ -33,7 +41,7 @@ OPSMAN_PASSWD=some_long_complex_admin_password \
 OPSMAN_URL=https://pcf.myinstance.mydomain.com \
 OPSMAN_USER=usually_admin \
 OPSMAN_PASSWD=some_long_complex_admin_password \
-  ./bosh-stop-start.sh start
+  ${HOME}/public-tools/bosh-stop-start/bosh-stop-start.sh start
 ```
 
 ## Technical notes
