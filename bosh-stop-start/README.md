@@ -32,7 +32,7 @@ git clone https://github.com/pivotal-education/public-tools.git
 OPSMAN_URL=https://pcf.myinstance.mydomain.com \
 OPSMAN_USER=usually_admin \
 OPSMAN_PASSWD=some_long_complex_admin_password \
-  ${HOME}/public-tools/bosh-stop-start./bosh-stop-start.sh stop
+  ${HOME}/public-tools/bosh-stop-start/bosh-stop-start.sh stop
 ```
 
 ### Starting an stopped installation
