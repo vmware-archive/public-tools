@@ -48,4 +48,4 @@ OPSMAN_PASSWD=some_long_complex_admin_password \
 
 * The BOSH director and Ops Manager VMs will remain in a running state after a `stop` operation is completed.  This is intentional.  If necessary these VMs can be manually stopped at the IaaS level but, clearly, they must both be running once again before issuing a `start` command.
 
-* It has been suggested that you should use the `Resource Config` panel of each tile to turn the instance count down to (at most) **one instance per instance group**.  If you encounter issues with the `stop` operation, like VMs failing to be deleted, this suggestion may be worth considering.
+* It has been suggested that you should use the `Resource Config` panel of each tile to turn the instance count down to (at most) **one instance per instance group**.  If you encounter issues with the `stop` operation, like VMs failing to be deleted, this suggestion may be worth considering.  When doing this, be sure to switch all post-deploy errands OFF to keep the wait times as low as possible.
