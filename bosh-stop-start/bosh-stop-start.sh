@@ -20,7 +20,7 @@ JQ=${SCRIPTDIR}/${JQ_BIN}
 
 case "$1" in
   "stop")
-      BOSH_CMD="stop --hard"
+      BOSH_CMD="stop --hard --skip-drain"
       ;;
   "start")
       BOSH_CMD="start"
