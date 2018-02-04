@@ -73,7 +73,7 @@ do
 
       OM_CMD="upload-product -p"
       if echo ${FILE_NAME} | grep -q "stemcell"; then
-        OM_CMD="upload-stemcell -s"
+        OM_CMD="upload-stemcell -f -s"
       fi
 
       printline "Importing: ${OM_CMD} ${FILE_NAME}"
