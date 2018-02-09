@@ -1,5 +1,0 @@
-# all required stemcells for product tiles
-stemcells 3312.28 21917
-stemcells 3312.29 23429
-stemcells 3363.25 21907
-

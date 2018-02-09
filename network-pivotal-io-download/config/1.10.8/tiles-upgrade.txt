@@ -1,3 +1,0 @@
-# Ops Manager product tile upgrades
-elastic-runtime 1.10.12 22018
-p-mysql         1.9.12  31460
