@@ -1,4 +1,5 @@
 # Initial product tiles for Ops Manager
+# [PRODUCT_SLUG] [PRODUCT_VERSION] [PRODUCT_FILE_ID]
 elastic-runtime 2.0.0   40254
 p-metrics       1.9.5   40114
 p-mysql         1.10.11 77288
