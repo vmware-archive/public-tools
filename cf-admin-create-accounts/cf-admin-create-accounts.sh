@@ -17,12 +17,13 @@ function printline() {
 }
 
 # for platform independence
-REALPATH="realpath"
-if ! which ${REALPATH} > /dev/null ; then
-  REALPATH="readlink -f"
+READLINK_BIN="readlink -f"
+if [ "$(uname -s)" == "Darwin" ]; then
+  READLINK_BIN="realpath"
 fi
 
-SCRIPTDIR=$(dirname $(${REALPATH} $0))
+
+SCRIPTDIR=$(dirname $(${READLINK_BIN} $0))
 
 printline "Operation starting"
 echo
