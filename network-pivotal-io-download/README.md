@@ -13,7 +13,7 @@ API_TOKEN=DctsxNhqDc4RLqxZExYx \
   ./config/2.0/install/stemcells.txt
 ```
 
-The script expects an input text file (e.g. student-files.txt) or stdin lines formatted as space-delimited triplets of [PRODUCT_SLUG] [PRODUCT_VERSION] [RELEASE_ID] where these values are obtained by selecting the (i) INFO icon for the associated Pivotal Network download, for example:
+The script expects an input text file (e.g. student-files.txt) or stdin lines formatted as space-delimited triplets of [PRODUCT_SLUG] [PRODUCT_VERSION] [PRODUCT_FILE_ID] where these values are obtained by selecting the (i) INFO icon for the associated Pivotal Network download, for example:
 
 ```
 ops-manager     1.12.5 35440
