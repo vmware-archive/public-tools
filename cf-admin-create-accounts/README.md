@@ -10,7 +10,13 @@ Log into your target Pivotal Application Service instance using the **UAA Admin*
   cf login -a api.<SYS_ENDPOINT> -u admin --skip-ssl-validation # assuming self-signed certs
 ```
 
-Then, pass in a file (or files) containing the required user emails (one per line) to the creation script, for example:
+WARNING:  Mac users need the Gnu version of the `readlink` utility. The one that comes with MacOS is missing the `-f` option used by the script.  Do the following:
+```
+brew install coreutils
+PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+```
+
+To create user accounts, pass in a file (or files) containing the required user emails (one per line) to the creation script, for example:
 
 ```no-highlight
   ./cf-admin-create-accounts.sh \
