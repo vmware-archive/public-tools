@@ -16,14 +16,7 @@ function printline() {
   echo && printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' - && echo $1
 }
 
-# for platform independence
-READLINK_BIN="readlink -f"
-if [ "$(uname -s)" == "Darwin" ]; then
-  READLINK_BIN="realpath"
-fi
-
-
-SCRIPTDIR=$(dirname $(${READLINK_BIN} $0))
+SCRIPTDIR=$(cd $(dirname "$0") && pwd -P)
 
 printline "Operation starting"
 echo
