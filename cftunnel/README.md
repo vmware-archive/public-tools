@@ -4,7 +4,7 @@
 
 It's nothing special whatsoever, just a tiny app with the sole purpose of providing a bridge for accessing back end services in Cloud Foundry just as if they were locally hosted.
 
-For instance this allows us to connect fully featured UI tools like [MySQL Workbench](https://www.mysql.com/products/workbench/) to a MySQL database residing inside Cloud Foundry.  Without this bridging technique, we're restricted to the using the MySQL CLI tool.
+For instance this allows us to connect fully featured UI tools like [MySQL Workbench](https://www.mysql.com/products/workbench/) to a MySQL service instance residing inside Cloud Foundry.  Without this bridging technique, we're restricted to the using the MySQL CLI tool.
 
 ## Why?
 
@@ -20,7 +20,7 @@ Instead, let's have a pointless, tiny NodeJS web app for arbitrary service bindi
 
 ## How?
 
-Assuming you're already logged onto PWS, you can use the following instructions:
+Assuming you're already logged onto PWS or a PCF instance, you can use the following instructions:
 
 ```
 git clone https://github.com/pivotal-education/public-tools.git
