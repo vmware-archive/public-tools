@@ -1,6 +1,6 @@
 # cf-admin-create-accounts
 
-This script uses the [cf CLI](https://docs.cloudfoundry.org/cf-cli/) to automate the creation of batches of user accounts in the Pivotal Application Service.  It also creates an ORG and SPACE pair for each user.  As such it's important to ensure the invoker of the script is already logged on to the correct Pivotal Application Service instance.
+This script uses the [cf CLI](https://docs.cloudfoundry.org/cf-cli/) to automate the creation of batches of user accounts in the Pivotal Application Service.  It also creates an ORG and SPACE pair for each user.  The script assumes the invoking user is already logged on to the correct Pivotal Application Service instance.
 
 When logging on with the cf CLI, we must use the **UAA** admin account, _not_ the Ops Manager admin account.  You can locate the password from the Ops Manager UI by navigating to the `Pivotal Application Service` tile and opening the `Credentials` tab. Find the `UAA` -> `Admin Credentials` and click on `Link to Credential` to reveal the password.
 
