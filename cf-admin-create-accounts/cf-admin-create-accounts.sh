@@ -40,9 +40,9 @@ fi
 
 echo
 echo "If you're not logged in as admin this action will likely fail"
-read -p "Are you sure you want to create users using this target?>" -r
+read -p "Are you sure you want to create users using this target?> " -r
 echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
+if [[ ! $REPLY =~ ^[Yy] ]]
 then
     echo "Aborting"
     exit 1
