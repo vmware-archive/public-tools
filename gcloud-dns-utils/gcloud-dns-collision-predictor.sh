@@ -1,6 +1,8 @@
 #!/bin/bash
 
-gcloud projects list --filter name:CSO-Education-cls* --format='value[separator=" "](PROJECT_ID,NAME)' | \
+PROJECT_NAME_SEARCH=CSO-Education-cls*
+
+gcloud projects list --filter name:${PROJECT_NAME_SEARCH} --format='value[separator=" "](PROJECT_ID,NAME)' | \
 while read -r LINE; do
   set ${LINE}
   PROJECT_ID=${1}

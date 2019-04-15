@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PROJECT_NAME_SEARCH=CSO-Education-cls*
+
 echo "# execute the following commands to remove all Cloud DNS entries from ${PROJECT_NAME_SEARCH}"
 gcloud projects list --filter name:${PROJECT_NAME_SEARCH} --format='value[separator=" "](PROJECT_ID,NAME)' | \
 while read -r LINE; do
